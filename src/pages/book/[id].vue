@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Book from '../../components/Book.vue'
+
 const props = defineProps<{ id: string }>()
 const router = useRouter()
 
