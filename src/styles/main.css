@@ -4,8 +4,9 @@ body,
   height: 100%;
   margin: 0;
   padding: 0;
+  background-color: #1e293b;
 }
 
-html.dark {
-  background: #121212;
+input {
+  color: #475569
 }

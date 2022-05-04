@@ -10,6 +10,9 @@ const go = () => {
 const booksPage = () => {
   router.push(`/hi/book`)
 }
+const createBooksPage = () => {
+  router.push(`/create-book`)
+}
 </script>
 
 <template>
@@ -51,6 +54,13 @@ const booksPage = () => {
       </button>
     </div>
     <div>
+      <button
+        class="m-3 text-sm btn"
+        @click="createBooksPage"
+      >
+        Create Book
+      </button>
+    </div><div>
       <button
         class="m-3 text-sm btn"
         @click="booksPage"
