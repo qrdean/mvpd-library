@@ -5,11 +5,17 @@ const props = defineProps<{
   isbn?: string,
   title: string,
   author: string,
-  publishDate?: string
-  fullInfo: boolean
+  publishDate?: string,
+  locationId?: number,
+  fullInfo: boolean,
   checkedOut: boolean
 }>()
 
+const locationList = [
+  { id: 1, locationName: "Library" },
+  { id: 2, locationName: "Night Stand" },
+  { id: 3, locationName: "Desk" }
+]
 </script>
 
 <template>

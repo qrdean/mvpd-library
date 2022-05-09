@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import Apis from '../services/api'
 
 const router = useRouter()
 
@@ -9,12 +10,26 @@ let isbn = ref('')
 let lccn = ref('')
 let author = ref('')
 
-let submitForm = () => {
-  console.log(publishDate.value)
-  console.log(title.value)
-  console.log(isbn.value)
-  console.log(lccn.value)
-  console.log(author.value)
+let submitForm = async () => {
+  if (title.value == '' || author.value == '') {
+    window.alert("Need to add title/author")
+    return 
+  }
+  let data = {
+    lccn: lccn.value,
+    isbn: isbn.value,
+    title: title.value,
+    author: author.value,
+    publishDate: publishDate.value
+  }
+  let res = await Apis.createBook(data)
+  if (!res) {
+    window.alert('Something went wrong')
+    return
+  }
+  if (res.status == 200) {
+    window.alert('Book Created')
+  }
 }
 
 </script>
