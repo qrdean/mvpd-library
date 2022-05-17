@@ -17,6 +17,9 @@ const toLogin = () => {
 const toRegister = () => {
   router.push(`/create-user`)
 }
+const toLocations = () => {
+  router.push(`/locations`)
+}
 const logout = () => {
   console.log('implement logout, wipe the local cache')
 }
@@ -27,6 +30,7 @@ const logout = () => {
     <button class="btn" @click="home()">Home</button> 
     <button class="btn" @click="toBookList()">Books</button>
     <button class="btn" @click="toCreate()">Add A Book</button>
+    <button class="btn" @click="toLocations()">Book Locations</button>
     <div v-if="loggedIn"><button class="btn" @click="logout()">Logout</button></div>
     <div v-else inline-flex gap-2>
       <button class="btn" @click="toLogin()">Login</button>
