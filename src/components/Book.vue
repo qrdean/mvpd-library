@@ -11,16 +11,12 @@ const props = defineProps<{
   checkedOut: boolean
 }>()
 
-const locationList = [
-  { id: 1, locationName: "Library" },
-  { id: 2, locationName: "Night Stand" },
-  { id: 3, locationName: "Desk" }
-]
+
 </script>
 
 <template>
-  <div class="p-3 m-2 ml-90 mr-90 b-1 b-white b-rounded">
-    <p class="m-2">
+  <div class="card-container">
+    <p class="font-bold text-xl mb-2">
       <span>
         {{ props.title }}
       </span>
@@ -28,9 +24,9 @@ const locationList = [
         by {{ props.author }}
       </span>
     </p>
-    <div v-if="props.fullInfo">
-      <p class="m-2">
-        {{ props.publishDate }}
+    <div text="left" v-if="props.fullInfo">
+      <p class="text-base">
+        Publish Date: {{ props.publishDate }}
       </p>
       <div v-if="props.lccn" class="m-2 text-sm">
         LCCN: {{ props.lccn }}

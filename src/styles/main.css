@@ -10,3 +10,10 @@ body,
 input {
   color: #475569
 }
+
+.input-label {
+  block;
+  text-white-700;
+  text-sm; 
+  font-bold mb-2;
+}

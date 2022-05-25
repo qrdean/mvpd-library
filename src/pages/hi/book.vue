@@ -41,9 +41,26 @@ watch(titleSearch, (title) => {
 <template>
   <div>
     <div i-carbon-search text-2xl inline-block />
-    <input v-model="titleSearch"/>
+    <div text="left" class="mb-5">
+      <label class="input-label">Title Search</label>
+      <input class="input-text" v-model="titleSearch"/>
+    </div>
 
-    <Book style="cursor: pointer" v-for="book in bookList" 
+    <div class="overflow-hidden shadow-lg">
+      <Book style="cursor:pointer" v-for="book in bookList" 
+        @click="goToBook(book.id.toString())"
+        :key="book.id" 
+        :id="book.id"
+        :title="book.book" 
+        :author="book.author" 
+        :lccn="book.lccn"
+        :isbn="book.isbn"
+        :publishDate="book.publishDate"
+        :checked-out="book.checkedOut"
+        :full-info="false"
+      />
+    </div>
+    <Book style="cursor:pointer" v-for="book in bookList" 
       @click="goToBook(book.id.toString())"
       :key="book.id" 
       :id="book.id"

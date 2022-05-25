@@ -32,7 +32,8 @@ const addLocation = () => {
     <li>{{ location.locationName }}</li>
   </ul>
   <div v-if="x.valueOf()">
-    <input v-model="location" />
+    <label class="input-label">New Label</label>
+    <input class="input-text" v-model="location" />
     <button
       class="btn m-3 text-sm mt-8"
       @click="addLocation()"

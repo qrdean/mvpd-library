@@ -34,30 +34,19 @@ let login = async () => {
   <div style="text-align: left" class="p-3 m-2 ml-90 mr-90 b-1 b-white b-rounded">
     <form @submit.prevent="login">
       <p class="m-2">
-        <label class="m-2">Email</label>
+        <label class="input-label">Email</label>
         <input 
+          class="input-text"
           placeholder="Email"
-          p="x-4 y-2"
-          w="250px"
-          text="center"
-          bg="transparent"
-          border="~ rounded gray-200 dark:gray-700"
-          outline="none active:none"
           v-model="email"
           :required="true"
         >
       </p>
       <p class="m-2">
-        <label class="m-2">Password</label>
+        <label class="input-label">Password</label>
         <input 
+          class="input-text"
           placeholder="Password"
-          type="password"
-          p="x-4 y-2"
-          w="250px"
-          text="center"
-          bg="transparent"
-          border="~ rounded gray-200 dark:gray-700"
-          outline="none active:none"
           v-model="password"
           :required="true"
         >
