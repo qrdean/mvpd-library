@@ -33,9 +33,9 @@ const logout = () => {
 <template>
   <nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-teal-800">
 
-    <div class="container flex flex-wrap justify-between items-center mx-auto">
-      <a @click="home()" class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Library</a>
-      <div class="hidden justify-between items-center w-full md:flex md:w-auto md:order-1" id="mobile-menu-2">
+    <div class="container flex justify-between items-center mx-auto">
+      <button @click="home()" class="clickable self-center text-xl font-semibold whitespace-nowrap dark:text-white">Library</button>
+      <div class="justify-between items-center w-full md:flex md:w-auto md:order-1" id="mobile-menu-2">
         <ul class="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
           <li>
             <Menu as="div" class="relative inline-block text-left">
@@ -44,7 +44,7 @@ const logout = () => {
               </div>
 
               <transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
-                <MenuItems class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <MenuItems class="origin-top-right absolute md:right-0 xs:left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                   <div class="py-1">
                     <MenuItem v-slot="{ active }">
                       <a @click="toBookList()" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">Book List</a>
@@ -61,7 +61,7 @@ const logout = () => {
             </Menu>
           </li>
           <li>
-            <a @click="toLogin()" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Login</a>
+            <button @click="toLogin()" class="clickable block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Login</button>
           </li>
         </ul>
       </div>

@@ -17,3 +17,7 @@ input {
   text-sm; 
   font-bold mb-2;
 }
+
+.clickable {
+  cursor: pointer;
+}
