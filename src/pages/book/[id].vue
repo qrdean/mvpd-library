@@ -5,40 +5,41 @@ const props = defineProps<{ id: string }>()
 const router = useRouter()
 
 const masterList = [
-  { id: 1, author: "Tolkien", book: "Twin Tower", publishDate: "9/9/1945", lccn: "", isbn: "", checkedOut: true},
-  { id: 2, author: "Tolkien", book: "Fellow ship in the ring", lccn: "0", isbn: "1-1", publishDate: "9/9/1944", checkedOut: false },
-  { id: 3, author: "Tolkien", book: "Return to the Kingdom",lccn: "3", isbn: "1-3", publishDate: "9/9/1946", checkedOut: false }
+  { id: 1, author: 'Tolkien', book: 'Twin Tower', publishDate: '9/9/1945', lccn: '', isbn: '', checkedOut: true },
+  { id: 2, author: 'Tolkien', book: 'Fellow ship in the ring', lccn: '0', isbn: '1-1', publishDate: '9/9/1944', checkedOut: false },
+  { id: 3, author: 'Tolkien', book: 'Return to the Kingdom', lccn: '3', isbn: '1-3', publishDate: '9/9/1946', checkedOut: false },
 ]
 
-let location = ref({ id: 1, locationName:"library", enabled: true })
+const location = ref({ id: 1, locationName: 'library', enabled: true })
 
 const checkoutBookCallback = (event: any) => {
-  console.log('current user id here too')
-  console.log(event)
+  // console.log('current user id here too')
+  // console.log(event)
   // make call to backend
 }
 
 const findById = (id: string) => {
-  return masterList.filter(l => l.id.toString() == id)?.[0]
+  return masterList.filter(l => l.id.toString() === id)?.[0]
 }
-let book = findById(props.id)
+const book = findById(props.id)
 
 </script>
 
 <template>
   <div class="mr-90 ml-90">
     <div i-carbon-pedestrian text-4xl inline-block />
-    <Book @checkout="checkoutBookCallback"
-      :key="book.id" 
+    <Book
       :id="book.id"
-      :title="book.book" 
-      :author="book.author" 
+      :key="book.id"
+      :title="book.book"
+      :author="book.author"
       :lccn="book.lccn"
       :isbn="book.isbn"
-      :publishDate="book.publishDate"
+      :publish-date="book.publishDate"
       :checked-out="book.checkedOut"
-      :selectedLocation="location"
+      :selected-location="location"
       :full-info="true"
+      @checkout="checkoutBookCallback"
     />
     <div>
       <button

@@ -4,13 +4,12 @@ export class User {
   }
 
   static getUser() {
-    let user = localStorage.getItem('user')
-    if (user) {
+    const user = localStorage.getItem('user')
+    if (user)
       return JSON.parse(user).user
-    }
+
     return null
   }
 }
 
 export default User
-

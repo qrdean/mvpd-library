@@ -1,62 +1,153 @@
-const DEV_ENDPOINT = "http://localhost:8000/"
-import User from './user'
+const DEV_ENDPOINT = 'http://localhost:8000/'
 
 export class Apis {
-  constructor(){}
+  constructor() {}
 
-  static async getAllBooks(): Promise<any> {
-    let url = `${DEV_ENDPOINT}book/masterBookList`
+  static async getAllMaster(): Promise<any> {
+    const url = `${DEV_ENDPOINT}book/masterBookList`
     console.log(url)
-    let response = await fetch(url, {
+    const response = await fetch(url, {
     })
-    if (response.status != 200) {
-      let json = await response.json()
+    if (response.status !== 200) {
+      const json = await response.json()
       console.log(json.message)
       return false
     }
     return response.json()
   }
 
-  static async createBook(data: any): Promise<any> {
+  static async getAllBooks(): Promise<any> {
+    const url = `${DEV_ENDPOINT}book/all`
+    console.log(url)
+    const response = await fetch(url, {
+      method: 'GET',
+    })
+    if (response.status !== 200) {
+      const json = await response.json()
+      console.log(json.message)
+      return { success: false, message: json.message }
+    }
+    const json = await response.json()
+    return { success: true, message: json.message, data: json.books }
+  }
 
-    let token = User.getUser()?.token
+  static async createBook(data: any): Promise<any> {
+    /*
+    const token = User.getUser()?.token
     console.log(User.getUser())
     console.log(token)
-    if (!token) {
+    if (!token)
       return false
-    }
+      */
+
     console.log(data)
     console.log(JSON.stringify(data))
-    let url = `${DEV_ENDPOINT}book/addMaster`
-    let response = await fetch(url, {
-      method: "POST",
+    const url = `${DEV_ENDPOINT}book/addMaster`
+    const response = await fetch(url, {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Token ${token}`
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     })
-    if (response.status != 200) {
-      let json = await response.json()
+    if (response.status !== 200) {
+      const json = await response.json()
       console.log(json.message)
       return false
     }
-    return response.json()
+
+    const json = await response.json()
+    return { success: true, message: json.message, data: json.books }
+  }
+
+  static async getLocations(): Promise<any> {
+    const url = `${DEV_ENDPOINT}book/getInventoryLocations`
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    if (response.status !== 200) {
+      const json = await response.json()
+      console.log(json.message)
+      return { message: json.message, success: false }
+    }
+
+    const json = await response.json()
+    return { message: json.message, success: true, data: json.inventoryLocations }
+  }
+
+  static async editBookLocation(data: any): Promise<any> {
+    const url = `${DEV_ENDPOINT}book/editBookInventoryLocation`
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+    if (response.status !== 200) {
+      const json = await response.json()
+      console.log(json.message)
+      return { message: json.message, success: false }
+    }
+
+    const json = await response.json()
+    return { message: json.message, success: true }
+  }
+
+  static async addInventoryLocation(data: any): Promise<any> {
+    const url = `${DEV_ENDPOINT}book/addInventoryLocation`
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+    if (response.status !== 200) {
+      const json = await response.json()
+      console.log(json.message)
+      return { message: json.message, success: false }
+    }
+
+    const json = await response.json()
+    return { message: json.message, success: true }
+  }
+
+  static async editInventoryLocation(data: any): Promise<any> {
+    const url = `${DEV_ENDPOINT}book/editInventoryLocation`
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+    if (response.status !== 200) {
+      const json = await response.json()
+      console.log(json.message)
+      return { message: json.message, success: false }
+    }
+
+    const json = await response.json()
+    return { message: json.message, success: true }
   }
 
   static async register(data: any): Promise<any> {
     console.log(data)
     console.log(JSON.stringify(data))
-    let url = `${DEV_ENDPOINT}user/register`
-    let response = await fetch(url, {
-      method: "POST",
+    const url = `${DEV_ENDPOINT}user/register`
+    const response = await fetch(url, {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     })
-    if (response.status != 200) {
-      let json = await response.json()
+    if (response.status !== 200) {
+      const json = await response.json()
       console.log(json.message)
       return false
     }
@@ -65,22 +156,21 @@ export class Apis {
 
   static async login(data: any): Promise<any> {
     console.log(data)
-    let url = `${DEV_ENDPOINT}user/loginWithPassport`
-    let response = await fetch(url, {
-      method: "POST",
+    const url = `${DEV_ENDPOINT}user/loginWithPassport`
+    const response = await fetch(url, {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     })
-    if (response.status != 200) {
-      let json = await response.json()
+    if (response.status !== 200) {
+      const json = await response.json()
       console.log(json.message)
       return false
     }
     return response.json()
   }
 }
-
 
 export default Apis

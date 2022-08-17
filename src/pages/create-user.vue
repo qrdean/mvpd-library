@@ -4,29 +4,29 @@ import Apis from '../services/api'
 
 const router = useRouter()
 
-let name = ref('')
-let email = ref('')
-let password = ref('')
+const name = ref('')
+const email = ref('')
+const password = ref('')
 
-let register = async () => {
-  console.log(email.value)
-  console.log(name.value)
-  console.log(password.value)
+const register = async() => {
+  // console.log(email.value)
+  // console.log(name.value)
+  // console.log(password.value)
 
-  let data = {
+  const data = {
     name: name.value,
     email: email.value,
-    password: password.value
+    password: password.value,
   }
 
-  let res = await Apis.register(data)
+  const res = await Apis.register(data)
 
   if (!res) {
     window.alert('Something went wrong')
     return
   }
   window.alert('User Registered')
-} 
+}
 
 </script>
 
@@ -35,38 +35,40 @@ let register = async () => {
     <form @submit.prevent="register">
       <p class="m-2">
         <label class="input-label">Email</label>
-        <input 
+        <input
+          v-model="email"
           class="input-text"
           placeholder="Email"
           type="email"
-          v-model="email"
           :required="true"
         >
       </p>
       <p class="m-2">
         <label class="input-label">Username</label>
-        <input 
+        <input
+          v-model="name"
           class="input-text"
           placeholder="Username"
-          v-model="name"
           :required="true"
         >
       </p>
       <p class="m-2">
         <label class="input-label">Password</label>
-        <input 
+        <input
+          v-model="password"
           class="input-text"
           placeholder="Password"
           type="password"
-          v-model="password"
           :required="true"
         >
       </p>
       <p class="m-2">
-        <button class="m-3 text-sm btn" type="submit">Create</button>
+        <button class="m-3 text-sm btn" type="submit">
+          Create
+        </button>
       </p>
     </form>
- </div>
+  </div>
   <div>
     <button
       class="btn m-3 text-sm mt-8"

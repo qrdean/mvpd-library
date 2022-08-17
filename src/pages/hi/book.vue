@@ -9,29 +9,30 @@ const goToBook = (id: string) => {
     router.push(`/book/${encodeURIComponent(id)}`)
 }
 const titleSearch = ref('')
-
+/**
 const locationList = [
-  { id: 1, locationName: "Library" },
-  { id: 2, locationName: "Night Stand" },
-  { id: 3, locationName: "Desk" }
-]
+  { id: 1, locationName: 'Library' },
+  { id: 2, locationName: 'Night Stand' },
+  { id: 3, locationName: 'Desk' },
+] */
 
 const masterList = [
-  { id: 1, author: "Tolkien", book: "Twin Tower", publishDate: "9/9/1945", lccn: "", isbn: "", checkedOut: true, locationId: 1},
-  { id: 2, author: "Tolkien", book: "Fellow ship in the ring", lccn: "0", isbn: "1-1", publishDate: "9/9/1944", checkedOut: false, locationId: null },
-  { id: 3, author: "Tolkien", book: "Return to the Kingdom",lccn: "3", isbn: "1-3", publishDate: "9/9/1946", checkedOut: false, locationId: 3 }
+  { id: 1, author: 'Tolkien', book: 'Twin Tower', publishDate: '9/9/1945', lccn: '', isbn: '', checkedOut: true, locationId: 1 },
+  { id: 2, author: 'Tolkien', book: 'Fellow ship in the ring', lccn: '0', isbn: '1-1', publishDate: '9/9/1944', checkedOut: false, locationId: null },
+  { id: 3, author: 'Tolkien', book: 'Return to the Kingdom', lccn: '3', isbn: '1-3', publishDate: '9/9/1946', checkedOut: false, locationId: 3 },
 ]
 
-let bookList = ref(masterList)
+const bookList = ref(masterList)
+const location = { id: 0, locationName: 'save', enabled: true }
 
-// Probably some debounce timer 
+// Probably some debounce timer
 watch(titleSearch, (title) => {
-  console.log(title)
-  console.log('hi')
-  if (title != "") {
-    console.log(title)
-    let filteredArr = masterList.filter(a => a.book.toLowerCase().includes(title.toLowerCase()))
-    console.log(filteredArr)
+  // console.log(title)
+  // console.log('hi')
+  if (title !== '') {
+    // console.log(title)
+    const filteredArr = masterList.filter(a => a.book.toLowerCase().includes(title.toLowerCase()))
+    // console.log(filteredArr)
     bookList.value = filteredArr
   }
 })
@@ -42,21 +43,24 @@ watch(titleSearch, (title) => {
   <div class="ml-90 mr-90">
     <div text="left" class="mb-5">
       <label class="input-label">Title Search</label>
-      <input class="input-text" v-model="titleSearch"/>
+      <input v-model="titleSearch" class="input-text">
     </div>
 
     <div class="overflow-hidden shadow-lg">
-      <Book style="cursor:pointer" v-for="book in bookList" 
-        @click="goToBook(book.id.toString())"
-        :key="book.id" 
+      <Book
+        v-for="book in bookList"
         :id="book.id"
-        :title="book.book" 
-        :author="book.author" 
+        :key="book.id"
+        :title="book.book"
+        :author="book.author"
         :lccn="book.lccn"
         :isbn="book.isbn"
-        :publishDate="book.publishDate"
+        :publish-date="book.publishDate"
         :checked-out="book.checkedOut"
         :full-info="false"
+        :selected-location="location"
+        style="cursor:pointer"
+        @click="goToBook(book.id.toString())"
       />
     </div>
   </div>

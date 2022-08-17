@@ -4,32 +4,31 @@ import Apis from '../services/api'
 
 const router = useRouter()
 
-let publishDate = ref('')
-let title = ref('')
-let isbn = ref('')
-let lccn = ref('')
-let author = ref('')
+const publishDate = ref('')
+const title = ref('')
+const isbn = ref('')
+const lccn = ref('')
+const author = ref('')
 
-let submitForm = async () => {
-  if (title.value == '' || author.value == '') {
-    window.alert("Need to add title/author")
-    return 
+const submitForm = async() => {
+  if (title.value === '' || author.value === '') {
+    window.alert('Need to add title/author')
+    return
   }
-  let data = {
+  const data = {
     lccn: lccn.value,
     isbn: isbn.value,
     title: title.value,
     author: author.value,
-    publishDate: publishDate.value
+    publishDate: publishDate.value,
   }
-  let res = await Apis.createBook(data)
+  const res = await Apis.createBook(data)
   if (!res) {
     window.alert('Something went wrong')
     return
   }
-  if (res.status == 200) {
+  if (res.status === 200)
     window.alert('Book Created')
-  }
 }
 
 </script>
@@ -39,51 +38,53 @@ let submitForm = async () => {
     <form @submit.prevent="submitForm">
       <p class="m-2">
         <label class="input-label">Title</label>
-        <input 
+        <input
+          v-model="title"
           class="input-text"
           placeholder="Title"
-          v-model="title"
           :required="true"
         >
       </p>
       <p class="m-2">
         <label class="input-label">Author</label>
-        <input 
+        <input
+          v-model="author"
           class="input-text"
           placeholder="Author"
-          v-model="author"
           :required="true"
         >
       </p>
       <p class="m-2">
         <label class="input-label">ISBN</label>
-        <input 
+        <input
+          v-model="isbn"
           class="input-text"
           placeholder="ISBN"
-          v-model="isbn"
         >
       </p>
       <p class="m-2">
         <label class="input-label">LCCN</label>
-        <input 
+        <input
+          v-model="lccn"
           class="input-text"
           placeholder="LCCN"
-          v-model="lccn"
         >
       </p>
       <p class="m-2">
         <label class="input-label">Publish Date</label>
-        <input 
+        <input
+          v-model="publishDate"
           class="input-text"
           placeholder="Publish Date"
-          v-model="publishDate"
         >
       </p>
       <p class="m-2">
-        <button class="m-3 text-sm btn" type="submit">Submit</button>
+        <button class="m-3 text-sm btn" type="submit">
+          Submit
+        </button>
       </p>
     </form>
- </div>
+  </div>
   <div>
     <button
       class="btn m-3 text-sm mt-8"
