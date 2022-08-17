@@ -12,6 +12,7 @@ import {
   TransitionRoot
 } from '@headlessui/vue'
 
+
 let x = ref(false)
 const router = useRouter()
 
@@ -42,12 +43,16 @@ const addLocation = () => {
   location.value = ''
 }
 
+export interface Locations {
+  id: number
+  locationName: string
+  enabled: boolean
+}
 </script>
 
 <template>
-  <h1>Locations</h1>
   <ul v-for="location in locationList">
-    <div class="mb-2">
+    <div class="mr-90 ml-90 mb-2">
       <SwitchGroup>
         <div class="flex items-center">
           <SwitchLabel class="mr-2">{{ location.locationName }}</SwitchLabel>

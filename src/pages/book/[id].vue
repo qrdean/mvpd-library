@@ -10,6 +10,8 @@ const masterList = [
   { id: 3, author: "Tolkien", book: "Return to the Kingdom",lccn: "3", isbn: "1-3", publishDate: "9/9/1946", checkedOut: false }
 ]
 
+let location = ref({ id: 1, locationName:"library", enabled: true })
+
 const checkoutBookCallback = (event: any) => {
   console.log('current user id here too')
   console.log(event)
@@ -24,7 +26,7 @@ let book = findById(props.id)
 </script>
 
 <template>
-  <div>
+  <div class="mr-90 ml-90">
     <div i-carbon-pedestrian text-4xl inline-block />
     <Book @checkout="checkoutBookCallback"
       :key="book.id" 
@@ -35,6 +37,7 @@ let book = findById(props.id)
       :isbn="book.isbn"
       :publishDate="book.publishDate"
       :checked-out="book.checkedOut"
+      :selectedLocation="location"
       :full-info="true"
     />
     <div>
