@@ -72,7 +72,7 @@ export class Apis {
     if (response.status !== 200) {
       const json = await response.json()
       console.log(json.message)
-      return false
+      return { success: false, message: json.message }
     }
 
     const json = await response.json()

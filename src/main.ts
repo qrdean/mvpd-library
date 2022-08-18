@@ -25,5 +25,7 @@ Apis.getAllBooks().then((data) => {
   store.setBooksAction(data?.data)
 })
 
+console.log(store)
+
 app.use(router)
 app.mount('#app')

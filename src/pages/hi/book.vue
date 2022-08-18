@@ -6,7 +6,7 @@ import { store } from '~/services/store'
 const router = useRouter()
 const bookList: any = ref(store.state.books)
 
-const goToBook = (id: string) => {
+const goToBook = (id: any) => {
   if (id)
     router.push(`/book/${encodeURIComponent(id)}`)
 }

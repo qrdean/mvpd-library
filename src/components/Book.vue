@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/vue'
+import { Listbox, ListboxButton, ListboxLabel, ListboxOption, ListboxOptions } from '@headlessui/vue'
+
 import { store } from '~/services/store'
+const emit = defineEmits(['locationChange'])
 const props = defineProps<{
   id: number
   lccn?: string
@@ -20,6 +22,13 @@ function findLocation(id: any) {
 const location: any = ref({})
 if (props.selectedLocationId)
   location.value = findLocation(props.selectedLocationId)
+
+watch(location, (change) => {
+  if (change) {
+    if (change.id !== props.selectedLocationId)
+      emit('locationChange', change.id)
+  }
+})
 
 </script>
 
@@ -45,10 +54,10 @@ if (props.selectedLocationId)
       </p>
       <!--<button class="text-sm btn" :disabled="checkedOut" @click="$emit('checkout', props.id)">Checkout</button>-->
       <div v-if="props.fullInfo">
-        Location
         <Listbox v-model="location">
           <!--<Listbox :key="selectedLocationId" :value="selectedLocationId">-->
           <div class="w-62">
+            <ListboxLabel>Location</ListboxLabel>
             <ListboxButton
               class="relative text-black w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
             >
@@ -61,6 +70,7 @@ if (props.selectedLocationId)
                 :key="item.id"
                 as="template"
                 :value="item"
+                @change="doChange()"
               >
                 <li :class="{'bg-blue-500 text-white': active, 'bg-white text-black': !active}">
                   <span :class="[ selected ? 'font-medium' : 'font-normal', 'block truncate', ]">{{ item?.location_name }}</span>
