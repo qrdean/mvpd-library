@@ -5,12 +5,10 @@ export class Apis {
 
   static async getAllMaster(): Promise<any> {
     const url = `${DEV_ENDPOINT}book/masterBookList`
-    console.log(url)
     const response = await fetch(url, {
     })
     if (response.status !== 200) {
       const json = await response.json()
-      console.log(json.message)
       return false
     }
     return response.json()
@@ -18,13 +16,11 @@ export class Apis {
 
   static async getAllBooks(): Promise<any> {
     const url = `${DEV_ENDPOINT}book/all`
-    console.log(url)
     const response = await fetch(url, {
       method: 'GET',
     })
     if (response.status !== 200) {
       const json = await response.json()
-      console.log(json.message)
       return { success: false, message: json.message }
     }
     const json = await response.json()
@@ -33,7 +29,6 @@ export class Apis {
 
   static async getBookById(data: any): Promise<any> {
     const url = `${DEV_ENDPOINT}book/id`
-    console.log(url)
     const response = await fetch(url, {
       method: 'POST',
       headers: {
@@ -43,7 +38,6 @@ export class Apis {
     })
     if (response.status !== 200) {
       const json = await response.json()
-      console.log(json.message)
       return { success: false, message: json.message }
     }
     const json = await response.json()
@@ -53,14 +47,10 @@ export class Apis {
   static async createBook(data: any): Promise<any> {
     /*
     const token = User.getUser()?.token
-    console.log(User.getUser())
-    console.log(token)
     if (!token)
       return false
       */
 
-    console.log(data)
-    console.log(JSON.stringify(data))
     const url = `${DEV_ENDPOINT}book/addMaster`
     const response = await fetch(url, {
       method: 'POST',
@@ -71,7 +61,6 @@ export class Apis {
     })
     if (response.status !== 200) {
       const json = await response.json()
-      console.log(json.message)
       return { success: false, message: json.message }
     }
 
@@ -89,7 +78,6 @@ export class Apis {
     })
     if (response.status !== 200) {
       const json = await response.json()
-      console.log(json.message)
       return { message: json.message, success: false }
     }
 
@@ -108,7 +96,6 @@ export class Apis {
     })
     if (response.status !== 200) {
       const json = await response.json()
-      console.log(json.message)
       return { message: json.message, success: false }
     }
 
@@ -127,7 +114,6 @@ export class Apis {
     })
     if (response.status !== 200) {
       const json = await response.json()
-      console.log(json.message)
       return { message: json.message, success: false }
     }
 
@@ -146,7 +132,6 @@ export class Apis {
     })
     if (response.status !== 200) {
       const json = await response.json()
-      console.log(json.message)
       return { message: json.message, success: false }
     }
 
@@ -155,8 +140,6 @@ export class Apis {
   }
 
   static async register(data: any): Promise<any> {
-    console.log(data)
-    console.log(JSON.stringify(data))
     const url = `${DEV_ENDPOINT}user/register`
     const response = await fetch(url, {
       method: 'POST',
@@ -167,14 +150,12 @@ export class Apis {
     })
     if (response.status !== 200) {
       const json = await response.json()
-      console.log(json.message)
       return false
     }
     return response.json()
   }
 
   static async login(data: any): Promise<any> {
-    console.log(data)
     const url = `${DEV_ENDPOINT}user/loginWithPassport`
     const response = await fetch(url, {
       method: 'POST',
@@ -185,7 +166,6 @@ export class Apis {
     })
     if (response.status !== 200) {
       const json = await response.json()
-      console.log(json.message)
       return false
     }
     return response.json()
