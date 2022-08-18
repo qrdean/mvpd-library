@@ -53,6 +53,58 @@ const submitForm = async() => {
 
 <template>
   <div class="mr-90 ml-90 mb-2">
+    <TransitionRoot
+      appear
+      :show="showSuccessMsg"
+      as="template"
+      enter="transition-opacity duration-250"
+      enter-from="opacity-0"
+      enter-to="opacity-100"
+      leave="transition-opacity duration-250"
+      leave-from="opacity-100"
+      leave-to="opacity-0"
+    >
+      <div class="flex justify-center">
+        <div class="alert-good" role="alert">
+          <div class="flex">
+            <div class="py-1">
+              <svg class="fill-current h-6 w-6 text-teal-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" /></svg>
+            </div>
+            <div>
+              <p class="font-bold">
+                {{ msg }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </TransitionRoot>
+    <TransitionRoot
+      appear
+      :show="showFailureMsg"
+      as="template"
+      enter="transition-opacity duration-250"
+      enter-from="opacity-0"
+      enter-to="opacity-100"
+      leave="transition-opacity duration-250"
+      leave-from="opacity-100"
+      leave-to="opacity-0"
+    >
+      <div class="flex justify-center">
+        <div class="alert-error" role="alert">
+          <div class="flex">
+            <div class="py-1">
+              <svg class="fill-current h-6 w-6 text-teal-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" /></svg>
+            </div>
+            <div>
+              <p class="font-bold">
+                {{ msg }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </TransitionRoot>
     <div i-carbon-book text-4xl inline-block />
     <div style="text-align: left" class="p-3 m-2 b-1 b-white b-rounded">
       <form @submit.prevent="submitForm">
@@ -113,57 +165,5 @@ const submitForm = async() => {
         Back
       </button>
     </div>
-    <TransitionRoot
-      appear
-      :show="showSuccessMsg"
-      as="template"
-      enter="transition-opacity duration-250"
-      enter-from="opacity-0"
-      enter-to="opacity-100"
-      leave="transition-opacity duration-250"
-      leave-from="opacity-100"
-      leave-to="opacity-0"
-    >
-      <div class="flex justify-center">
-        <div class="alert-good" role="alert">
-          <div class="flex">
-            <div class="py-1">
-              <svg class="fill-current h-6 w-6 text-teal-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" /></svg>
-            </div>
-            <div>
-              <p class="font-bold">
-                {{ msg }}
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </TransitionRoot>
-    <TransitionRoot
-      appear
-      :show="showFailureMsg"
-      as="template"
-      enter="transition-opacity duration-250"
-      enter-from="opacity-0"
-      enter-to="opacity-100"
-      leave="transition-opacity duration-250"
-      leave-from="opacity-100"
-      leave-to="opacity-0"
-    >
-      <div class="flex justify-center">
-        <div class="alert-error" role="alert">
-          <div class="flex">
-            <div class="py-1">
-              <svg class="fill-current h-6 w-6 text-teal-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" /></svg>
-            </div>
-            <div>
-              <p class="font-bold">
-                {{ msg }}
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </TransitionRoot>
   </div>
 </template>
