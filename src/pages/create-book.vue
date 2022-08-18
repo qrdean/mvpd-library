@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import Apis from '../services/api'
+import { Apis } from '../services/api'
 
 const router = useRouter()
 

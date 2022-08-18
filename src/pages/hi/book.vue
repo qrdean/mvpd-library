@@ -1,39 +1,29 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import Book from '../../components/Book.vue'
+import { store } from '~/services/store'
 
 const router = useRouter()
+const bookList: any = ref(store.state.books)
 
 const goToBook = (id: string) => {
   if (id)
     router.push(`/book/${encodeURIComponent(id)}`)
 }
 const titleSearch = ref('')
-/**
-const locationList = [
-  { id: 1, locationName: 'Library' },
-  { id: 2, locationName: 'Night Stand' },
-  { id: 3, locationName: 'Desk' },
-] */
-
-const masterList = [
-  { id: 1, author: 'Tolkien', book: 'Twin Tower', publishDate: '9/9/1945', lccn: '', isbn: '', checkedOut: true, locationId: 1 },
-  { id: 2, author: 'Tolkien', book: 'Fellow ship in the ring', lccn: '0', isbn: '1-1', publishDate: '9/9/1944', checkedOut: false, locationId: null },
-  { id: 3, author: 'Tolkien', book: 'Return to the Kingdom', lccn: '3', isbn: '1-3', publishDate: '9/9/1946', checkedOut: false, locationId: 3 },
-]
-
-const bookList = ref(masterList)
-const location = { id: 0, locationName: 'save', enabled: true }
 
 // Probably some debounce timer
-watch(titleSearch, (title) => {
+watch(titleSearch, (titleToSearch) => {
   // console.log(title)
   // console.log('hi')
-  if (title !== '') {
+  if (titleToSearch !== '') {
     // console.log(title)
-    const filteredArr = masterList.filter(a => a.book.toLowerCase().includes(title.toLowerCase()))
+    const filteredArr = store.state.books.filter((a: any) => a.title.toLowerCase().includes(titleToSearch.toLowerCase()))
     // console.log(filteredArr)
     bookList.value = filteredArr
+  }
+  else {
+    bookList.value = store.state.books
   }
 })
 
@@ -49,18 +39,13 @@ watch(titleSearch, (title) => {
     <div class="overflow-hidden shadow-lg">
       <Book
         v-for="book in bookList"
-        :id="book.id"
-        :key="book.id"
-        :title="book.book"
-        :author="book.author"
-        :lccn="book.lccn"
-        :isbn="book.isbn"
-        :publish-date="book.publishDate"
-        :checked-out="book.checkedOut"
+        :id="book?.id"
+        :key="book?.id"
+        :title="book?.title"
+        :author="book?.author"
         :full-info="false"
-        :selected-location="location"
         style="cursor:pointer"
-        @click="goToBook(book.id.toString())"
+        @click="goToBook(book?.id)"
       />
     </div>
   </div>

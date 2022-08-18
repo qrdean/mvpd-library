@@ -6,27 +6,28 @@ import {
   DialogDescription,
   DialogPanel,
   DialogTitle,
-  Switch,
-  SwitchGroup,
-  SwitchLabel,
   TransitionChild,
   TransitionRoot,
 } from '@headlessui/vue'
 
-export interface Locations {
-  id: number
-  locationName: string
-  enabled: boolean
-}
+import { store } from '~/services/store'
+import { Apis } from '~/services/api'
 
 const router = useRouter()
 
+const locationList: any = ref(store.state.location)
+
+/**
 const locationList = ref([
   { id: 1, locationName: 'Library', enabled: true },
   { id: 2, locationName: 'Night Stand', enabled: true },
   { id: 3, locationName: 'Desk', enabled: true },
 ])
+*/
 
+const showSuccessMsg = ref(false)
+const showFailureMsg = ref(false)
+const msg = ref('')
 const location = ref('')
 // const enabled = ref(false)
 
@@ -42,34 +43,67 @@ const closeModal = () => {
 
 const addLocation = () => {
   // console.log(location.value)
-  if (location.value)
-    locationList.value.push({ id: locationList.value[locationList.value.length - 1].id++, locationName: location.value, enabled: true })
+  if (location.value) {
+    Apis.addInventoryLocation({ locationName: location.value }).then((res: any) => {
+      if (res.success) {
+        setTimeout(() => {
+          showSuccessMsg.value = false
+        }, 2000)
+        msg.value = res.message
+        showSuccessMsg.value = true
+        Apis.getLocations().then((res: any) => {
+          store.setLocationAction(res?.data)
+          locationList.value = store.state.location
+        })
+        location.value = ''
+      }
+      else {
+        setTimeout(() => {
+          showFailureMsg.value = false
+        }, 2000)
+        msg.value = res.message
+        showFailureMsg.value = true
+      }
+    })
+  }
+}
 
-  location.value = ''
+function deleteLocation(locationId: any) {
+  if (locationId) {
+    Apis.deleteInventoryLocation({ id: locationId }).then((res: any) => {
+      if (res.success) {
+        setTimeout(() => {
+          showSuccessMsg.value = false
+        }, 2000)
+        msg.value = res.message
+        showSuccessMsg.value = true
+        Apis.getLocations().then((res: any) => {
+          store.setLocationAction(res?.data)
+          locationList.value = store.state.location
+        })
+      }
+      else {
+        setTimeout(() => {
+          showFailureMsg.value = false
+        }, 2000)
+        msg.value = res.message
+        showFailureMsg.value = true
+      }
+    })
+  }
 }
 
 </script>
 
 <template>
-  <ul v-for="location in locationList" :key="location.id">
+  <ul v-for="locationItem in locationList" :key="locationItem.id">
     <div class="mr-90 ml-90 mb-2">
-      <SwitchGroup>
-        <div class="flex items-center">
-          <SwitchLabel class="mr-2">
-            {{ location.locationName }}
-          </SwitchLabel>
-          <Switch
-            v-model="location.enabled"
-            :class="location.enabled ? 'bg-teal-800' : 'bg-teal-300'"
-            class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-          >
-            <span
-              :class="location.enabled ? 'translate-x-6' : 'translate-x-1'"
-              class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform"
-            />
-          </Switch>
-        </div>
-      </SwitchGroup>
+      <span class="m-6">
+        {{ locationItem.location_name }}
+      </span>
+      <button class="btn m-1 text-sm" @click="deleteLocation(locationItem.id)">
+        Delete
+      </button>
     </div>
   </ul>
   <div>
@@ -130,5 +164,57 @@ const addLocation = () => {
         </div>
       </div>
     </Dialog>
+  </TransitionRoot>
+  <TransitionRoot
+    appear
+    :show="showSuccessMsg"
+    as="template"
+    enter="transition-opacity duration-250"
+    enter-from="opacity-0"
+    enter-to="opacity-100"
+    leave="transition-opacity duration-250"
+    leave-from="opacity-100"
+    leave-to="opacity-0"
+  >
+    <div class="flex justify-center">
+      <div class="alert-good" role="alert">
+        <div class="flex">
+          <div class="py-1">
+            <svg class="fill-current h-6 w-6 text-teal-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" /></svg>
+          </div>
+          <div>
+            <p class="font-bold">
+              {{ msg }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </TransitionRoot>
+  <TransitionRoot
+    appear
+    :show="showFailureMsg"
+    as="template"
+    enter="transition-opacity duration-250"
+    enter-from="opacity-0"
+    enter-to="opacity-100"
+    leave="transition-opacity duration-250"
+    leave-from="opacity-100"
+    leave-to="opacity-0"
+  >
+    <div class="flex justify-center">
+      <div class="alert-error" role="alert">
+        <div class="flex">
+          <div class="py-1">
+            <svg class="fill-current h-6 w-6 text-teal-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" /></svg>
+          </div>
+          <div>
+            <p class="font-bold">
+              {{ msg }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
   </TransitionRoot>
 </template>

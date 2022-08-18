@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/vue'
-import type { Locations } from '../pages/locations.vue'
+import { store } from '~/services/store'
 const props = defineProps<{
   id: number
   lccn?: string
@@ -8,15 +8,19 @@ const props = defineProps<{
   title: string
   author: string
   publishDate?: string
-  selectedLocation: Locations
+  selectedLocationId?: string
   fullInfo: boolean
-  checkedOut: boolean
 }>()
-const locationList = [
-  { id: 1, locationName: 'Library', enabled: true },
-  { id: 2, locationName: 'Night Stand', enabled: true },
-  { id: 3, locationName: 'Desk', enabled: true },
-]
+const locationList: any = store.state.location
+
+function findLocation(id: any) {
+  return locationList?.filter((a: any) => a.id === id)?.[0]
+}
+
+const location: any = ref({})
+if (props.selectedLocationId)
+  location.value = findLocation(props.selectedLocationId)
+
 </script>
 
 <template>
@@ -40,30 +44,32 @@ const locationList = [
         ISBN: {{ props.isbn }}
       </p>
       <!--<button class="text-sm btn" :disabled="checkedOut" @click="$emit('checkout', props.id)">Checkout</button>-->
-      Location
-      <!--<Listbox v-model="selectedLocation">-->
-      <Listbox :value="selectedLocation">
-        <div class="w-62">
-          <ListboxButton
-            class="relative text-black w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
-          >
-            {{ selectedLocation.locationName }}
-          </ListboxButton>
-          <ListboxOptions class="absolute mt-1 max-h-60 w-62 overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-            <ListboxOption
-              v-for="location in locationList"
-              v-slot="{ active, selected }"
-              :key="location.id"
-              as="template"
-              :value="location"
+      <div v-if="props.fullInfo">
+        Location
+        <Listbox v-model="location">
+          <!--<Listbox :key="selectedLocationId" :value="selectedLocationId">-->
+          <div class="w-62">
+            <ListboxButton
+              class="relative text-black w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
             >
-              <li :class="{'bg-blue-500 text-white': active, 'bg-white text-black': !active}">
-                <span :class="[ selected ? 'font-medium' : 'font-normal', 'block truncate', ]">{{ location?.locationName }}</span>
-              </li>
-            </ListboxOption>
-          </ListboxOptions>
-        </div>
-      </Listbox>
+              {{ location?.location_name }}
+            </ListboxButton>
+            <ListboxOptions class="absolute mt-1 max-h-60 w-62 overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+              <ListboxOption
+                v-for="item in locationList"
+                v-slot="{ active, selected }"
+                :key="item.id"
+                as="template"
+                :value="item"
+              >
+                <li :class="{'bg-blue-500 text-white': active, 'bg-white text-black': !active}">
+                  <span :class="[ selected ? 'font-medium' : 'font-normal', 'block truncate', ]">{{ item?.location_name }}</span>
+                </li>
+              </ListboxOption>
+            </ListboxOptions>
+          </div>
+        </Listbox>
+      </div>
     </div>
   </div>
 </template>

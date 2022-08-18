@@ -1,27 +1,25 @@
 <script setup lang="ts">
 import Book from '../../components/Book.vue'
+import { store } from '~/services/store'
 
-const props = defineProps<{ id: string }>()
+const props = defineProps<{
+  id: number
+}>()
 const router = useRouter()
 
-const masterList = [
-  { id: 1, author: 'Tolkien', book: 'Twin Tower', publishDate: '9/9/1945', lccn: '', isbn: '', checkedOut: true },
-  { id: 2, author: 'Tolkien', book: 'Fellow ship in the ring', lccn: '0', isbn: '1-1', publishDate: '9/9/1944', checkedOut: false },
-  { id: 3, author: 'Tolkien', book: 'Return to the Kingdom', lccn: '3', isbn: '1-3', publishDate: '9/9/1946', checkedOut: false },
-]
+const result = filterThing(store.state.books)
+const book = ref(result?.[0])
 
-const location = ref({ id: 1, locationName: 'library', enabled: true })
+function filterThing(books: any) {
+  const result = books.filter((a: any) => a.id === props.id)
+  return result
+}
 
 const checkoutBookCallback = (event: any) => {
   // console.log('current user id here too')
   // console.log(event)
   // make call to backend
 }
-
-const findById = (id: string) => {
-  return masterList.filter(l => l.id.toString() === id)?.[0]
-}
-const book = findById(props.id)
 
 </script>
 
@@ -31,13 +29,12 @@ const book = findById(props.id)
     <Book
       :id="book.id"
       :key="book.id"
-      :title="book.book"
+      :title="book.title"
       :author="book.author"
       :lccn="book.lccn"
       :isbn="book.isbn"
       :publish-date="book.publishDate"
-      :checked-out="book.checkedOut"
-      :selected-location="location"
+      :selected-location-id="book.location_id"
       :full-info="true"
       @checkout="checkoutBookCallback"
     />

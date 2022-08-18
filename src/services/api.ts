@@ -31,6 +31,25 @@ export class Apis {
     return { success: true, message: json.message, data: json.books }
   }
 
+  static async getBookById(data: any): Promise<any> {
+    const url = `${DEV_ENDPOINT}book/id`
+    console.log(url)
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+    if (response.status !== 200) {
+      const json = await response.json()
+      console.log(json.message)
+      return { success: false, message: json.message }
+    }
+    const json = await response.json()
+    return { success: true, message: json.message, data: json.book }
+  }
+
   static async createBook(data: any): Promise<any> {
     /*
     const token = User.getUser()?.token
@@ -116,8 +135,8 @@ export class Apis {
     return { message: json.message, success: true }
   }
 
-  static async editInventoryLocation(data: any): Promise<any> {
-    const url = `${DEV_ENDPOINT}book/editInventoryLocation`
+  static async deleteInventoryLocation(data: any): Promise<any> {
+    const url = `${DEV_ENDPOINT}book/deleteInventoryLocation`
     const response = await fetch(url, {
       method: 'POST',
       headers: {
@@ -172,5 +191,3 @@ export class Apis {
     return response.json()
   }
 }
-
-export default Apis

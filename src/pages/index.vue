@@ -1,10 +1,4 @@
 <script setup lang="ts">
-import Apis from '../services/api'
-
-const getBooks = async() => {
-  const res = await Apis.getAllBooks()
-  console.log(res)
-}
 
 </script>
 
@@ -15,15 +9,6 @@ const getBooks = async() => {
     <p>
       <em text-sm op75>Where All Your Books Reside</em>
     </p>
-
-    <div>
-      <button
-        class="m-3 text-sm btn"
-        @click="getBooks"
-      >
-        Get All Books Test
-      </button>
-    </div>
 
     <div class="flex justify-center">
       <div class="alert-good" role="alert">
