@@ -48,7 +48,7 @@ const locationChangeCallback = (locationId: any) => {
 
 <template>
   <div class="mr-90 ml-90">
-    <div i-carbon-pedestrian text-4xl inline-block />
+    <div i-carbon-book text-4xl inline-block />
     <Book
       :id="book.id"
       :key="book.id"

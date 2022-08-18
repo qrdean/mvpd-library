@@ -31,6 +31,7 @@ watch(titleSearch, (titleToSearch) => {
 
 <template>
   <div class="ml-90 mr-90">
+    <div i-carbon-book text-4xl inline-block />
     <div text="left" class="mb-5">
       <label class="input-label">Title Search</label>
       <input v-model="titleSearch" class="input-text">

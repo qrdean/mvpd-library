@@ -96,125 +96,126 @@ function deleteLocation(locationId: any) {
 </script>
 
 <template>
-  <ul v-for="locationItem in locationList" :key="locationItem.id">
-    <div class="mr-90 ml-90 mb-2">
+  <div class="mr-90 ml-90 mb-2">
+    <div i-carbon-book text-4xl inline-block />
+    <ul v-for="locationItem in locationList" :key="locationItem.id">
       <span class="m-6">
         {{ locationItem.location_name }}
       </span>
       <button class="btn m-1 text-sm" @click="deleteLocation(locationItem.id)">
         Delete
       </button>
-    </div>
-  </ul>
-  <div>
-    <button
-      class="btn m-3 text-sm mt-8"
-      @click="openModal()"
-    >
-      New Location
-    </button>
-    <button
-      class="btn m-3 text-sm mt-8"
-      @click="router.back()"
-    >
-      Back
-    </button>
-  </div>
-
-  <TransitionRoot :show="isOpen" as="template">
-    <Dialog as="div" :open="isOpen" class="relative z-10" @close="closeModal()">
-      <TransitionChild
-        as="template"
-        enter="duration-300 ease-out"
-        enter-from="opacity-0"
-        enter-to="opacity-100"
-        leave="duration-200 ease-in"
-        leave-from="opacity-100"
-        leave-to="opacity-0"
+    </ul>
+    <div>
+      <button
+        class="btn m-3 text-sm mt-8"
+        @click="openModal()"
       >
-        <div class="fixed inset-0 bg-black bg-opacity-25" />
-      </TransitionChild>
+        New Location
+      </button>
+      <button
+        class="btn m-3 text-sm mt-8"
+        @click="router.back()"
+      >
+        Back
+      </button>
+    </div>
 
-      <div class="fixed inset-0 overflow-y-auto">
-        <div class="flex min-h-full items-center justify-center p-4 text-center">
-          <TransitionChild
-            as="template"
-            enter="duration-300 ease-out"
-            enter-from="opacity-0 scale-95"
-            enter-to="opacity-100 scale-100"
-            leave="duration-200 ease-in"
-            leave-from="opacity-100 scale-100"
-            leave-to="opacity-0 scale-95"
-          >
-            <DialogPanel class="w-full max-w-md transform overflow-hidden rounded-2xl dark:bg-teal-800 p-6 text-left align-middle shadow-xl transition-all">
-              <DialogTitle as="h3" class="text-lg font-medium leading-6 dark:text-white">
-                New Location
-              </DialogTitle>
-              <DialogDescription class="mt-2">
-                <input v-model="location" class="input-text">
-                <button
-                  class="btn m-3 text-sm"
-                  @click="addLocation();closeModal()"
-                >
-                  Add
-                </button>
-              </DialogDescription>
-            </DialogPanel>
-          </TransitionChild>
-        </div>
-      </div>
-    </Dialog>
-  </TransitionRoot>
-  <TransitionRoot
-    appear
-    :show="showSuccessMsg"
-    as="template"
-    enter="transition-opacity duration-250"
-    enter-from="opacity-0"
-    enter-to="opacity-100"
-    leave="transition-opacity duration-250"
-    leave-from="opacity-100"
-    leave-to="opacity-0"
-  >
-    <div class="flex justify-center">
-      <div class="alert-good" role="alert">
-        <div class="flex">
-          <div class="py-1">
-            <svg class="fill-current h-6 w-6 text-teal-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" /></svg>
-          </div>
-          <div>
-            <p class="font-bold">
-              {{ msg }}
-            </p>
+    <TransitionRoot :show="isOpen" as="template">
+      <Dialog as="div" :open="isOpen" class="relative z-10" @close="closeModal()">
+        <TransitionChild
+          as="template"
+          enter="duration-300 ease-out"
+          enter-from="opacity-0"
+          enter-to="opacity-100"
+          leave="duration-200 ease-in"
+          leave-from="opacity-100"
+          leave-to="opacity-0"
+        >
+          <div class="fixed inset-0 bg-black bg-opacity-25" />
+        </TransitionChild>
+
+        <div class="fixed inset-0 overflow-y-auto">
+          <div class="flex min-h-full items-center justify-center p-4 text-center">
+            <TransitionChild
+              as="template"
+              enter="duration-300 ease-out"
+              enter-from="opacity-0 scale-95"
+              enter-to="opacity-100 scale-100"
+              leave="duration-200 ease-in"
+              leave-from="opacity-100 scale-100"
+              leave-to="opacity-0 scale-95"
+            >
+              <DialogPanel class="w-full max-w-md transform overflow-hidden rounded-2xl dark:bg-teal-800 p-6 text-left align-middle shadow-xl transition-all">
+                <DialogTitle as="h3" class="text-lg font-medium leading-6 dark:text-white">
+                  New Location
+                </DialogTitle>
+                <DialogDescription class="mt-2">
+                  <input v-model="location" class="input-text">
+                  <button
+                    class="btn m-3 text-sm"
+                    @click="addLocation();closeModal()"
+                  >
+                    Add
+                  </button>
+                </DialogDescription>
+              </DialogPanel>
+            </TransitionChild>
           </div>
         </div>
-      </div>
-    </div>
-  </TransitionRoot>
-  <TransitionRoot
-    appear
-    :show="showFailureMsg"
-    as="template"
-    enter="transition-opacity duration-250"
-    enter-from="opacity-0"
-    enter-to="opacity-100"
-    leave="transition-opacity duration-250"
-    leave-from="opacity-100"
-    leave-to="opacity-0"
-  >
-    <div class="flex justify-center">
-      <div class="alert-error" role="alert">
-        <div class="flex">
-          <div class="py-1">
-            <svg class="fill-current h-6 w-6 text-teal-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" /></svg>
-          </div>
-          <div>
-            <p class="font-bold">
-              {{ msg }}
-            </p>
+      </Dialog>
+    </TransitionRoot>
+    <TransitionRoot
+      appear
+      :show="showSuccessMsg"
+      as="template"
+      enter="transition-opacity duration-250"
+      enter-from="opacity-0"
+      enter-to="opacity-100"
+      leave="transition-opacity duration-250"
+      leave-from="opacity-100"
+      leave-to="opacity-0"
+    >
+      <div class="flex justify-center">
+        <div class="alert-good" role="alert">
+          <div class="flex">
+            <div class="py-1">
+              <svg class="fill-current h-6 w-6 text-teal-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" /></svg>
+            </div>
+            <div>
+              <p class="font-bold">
+                {{ msg }}
+              </p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </TransitionRoot>
+    </TransitionRoot>
+    <TransitionRoot
+      appear
+      :show="showFailureMsg"
+      as="template"
+      enter="transition-opacity duration-250"
+      enter-from="opacity-0"
+      enter-to="opacity-100"
+      leave="transition-opacity duration-250"
+      leave-from="opacity-100"
+      leave-to="opacity-0"
+    >
+      <div class="flex justify-center">
+        <div class="alert-error" role="alert">
+          <div class="flex">
+            <div class="py-1">
+              <svg class="fill-current h-6 w-6 text-teal-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" /></svg>
+            </div>
+            <div>
+              <p class="font-bold">
+                {{ msg }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </TransitionRoot>
+  </div>
 </template>

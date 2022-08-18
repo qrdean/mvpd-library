@@ -52,115 +52,118 @@ const submitForm = async() => {
 </script>
 
 <template>
-  <div style="text-align: left" class="p-3 m-2 ml-90 mr-90 b-1 b-white b-rounded">
-    <form @submit.prevent="submitForm">
-      <p class="m-2">
-        <label class="input-label">Title</label>
-        <input
-          v-model="title"
-          class="input-text"
-          placeholder="Title"
-          :required="true"
-        >
-      </p>
-      <p class="m-2">
-        <label class="input-label">Author</label>
-        <input
-          v-model="author"
-          class="input-text"
-          placeholder="Author"
-          :required="true"
-        >
-      </p>
-      <p class="m-2">
-        <label class="input-label">ISBN</label>
-        <input
-          v-model="isbn"
-          class="input-text"
-          placeholder="ISBN"
-        >
-      </p>
-      <p class="m-2">
-        <label class="input-label">LCCN</label>
-        <input
-          v-model="lccn"
-          class="input-text"
-          placeholder="LCCN"
-        >
-      </p>
-      <p class="m-2">
-        <label class="input-label">Publish Date</label>
-        <input
-          v-model="publishDate"
-          class="input-text"
-          placeholder="Publish Date"
-        >
-      </p>
-      <p class="m-2">
-        <button class="m-3 text-sm btn" type="submit">
-          Submit
-        </button>
-      </p>
-    </form>
-  </div>
-  <div>
-    <button
-      class="btn m-3 text-sm mt-8"
-      @click="router.back()"
+  <div class="mr-90 ml-90 mb-2">
+    <div i-carbon-book text-4xl inline-block />
+    <div style="text-align: left" class="p-3 m-2 b-1 b-white b-rounded">
+      <form @submit.prevent="submitForm">
+        <p class="m-2">
+          <label class="input-label">Title</label>
+          <input
+            v-model="title"
+            class="input-text"
+            placeholder="Title"
+            :required="true"
+          >
+        </p>
+        <p class="m-2">
+          <label class="input-label">Author</label>
+          <input
+            v-model="author"
+            class="input-text"
+            placeholder="Author"
+            :required="true"
+          >
+        </p>
+        <p class="m-2">
+          <label class="input-label">ISBN</label>
+          <input
+            v-model="isbn"
+            class="input-text"
+            placeholder="ISBN"
+          >
+        </p>
+        <p class="m-2">
+          <label class="input-label">LCCN</label>
+          <input
+            v-model="lccn"
+            class="input-text"
+            placeholder="LCCN"
+          >
+        </p>
+        <p class="m-2">
+          <label class="input-label">Publish Date</label>
+          <input
+            v-model="publishDate"
+            class="input-text"
+            placeholder="Publish Date"
+          >
+        </p>
+        <p class="m-2">
+          <button class="m-3 text-sm btn" type="submit">
+            Submit
+          </button>
+        </p>
+      </form>
+    </div>
+    <div>
+      <button
+        class="btn m-3 text-sm mt-8"
+        @click="router.back()"
+      >
+        Back
+      </button>
+    </div>
+    <TransitionRoot
+      appear
+      :show="showSuccessMsg"
+      as="template"
+      enter="transition-opacity duration-250"
+      enter-from="opacity-0"
+      enter-to="opacity-100"
+      leave="transition-opacity duration-250"
+      leave-from="opacity-100"
+      leave-to="opacity-0"
     >
-      Back
-    </button>
+      <div class="flex justify-center">
+        <div class="alert-good" role="alert">
+          <div class="flex">
+            <div class="py-1">
+              <svg class="fill-current h-6 w-6 text-teal-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" /></svg>
+            </div>
+            <div>
+              <p class="font-bold">
+                {{ msg }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </TransitionRoot>
+    <TransitionRoot
+      appear
+      :show="showFailureMsg"
+      as="template"
+      enter="transition-opacity duration-250"
+      enter-from="opacity-0"
+      enter-to="opacity-100"
+      leave="transition-opacity duration-250"
+      leave-from="opacity-100"
+      leave-to="opacity-0"
+    >
+      <div class="flex justify-center">
+        <div class="alert-error" role="alert">
+          <div class="flex">
+            <div class="py-1">
+              <svg class="fill-current h-6 w-6 text-teal-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" /></svg>
+            </div>
+            <div>
+              <p class="font-bold">
+                {{ msg }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </TransitionRoot>
   </div>
-  <TransitionRoot
-    appear
-    :show="showSuccessMsg"
-    as="template"
-    enter="transition-opacity duration-250"
-    enter-from="opacity-0"
-    enter-to="opacity-100"
-    leave="transition-opacity duration-250"
-    leave-from="opacity-100"
-    leave-to="opacity-0"
-  >
-    <div class="flex justify-center">
-      <div class="alert-good" role="alert">
-        <div class="flex">
-          <div class="py-1">
-            <svg class="fill-current h-6 w-6 text-teal-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" /></svg>
-          </div>
-          <div>
-            <p class="font-bold">
-              {{ msg }}
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </TransitionRoot>
-  <TransitionRoot
-    appear
-    :show="showFailureMsg"
-    as="template"
-    enter="transition-opacity duration-250"
-    enter-from="opacity-0"
-    enter-to="opacity-100"
-    leave="transition-opacity duration-250"
-    leave-from="opacity-100"
-    leave-to="opacity-0"
-  >
-    <div class="flex justify-center">
-      <div class="alert-error" role="alert">
-        <div class="flex">
-          <div class="py-1">
-            <svg class="fill-current h-6 w-6 text-teal-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" /></svg>
-          </div>
-          <div>
-            <p class="font-bold">
-              {{ msg }}
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </TransitionRoot>
 </template>

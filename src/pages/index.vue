@@ -1,4 +1,8 @@
 <script setup lang="ts">
+const router = useRouter()
+const toBookList = () => {
+  router.push('/hi/book')
+}
 
 </script>
 
@@ -9,7 +13,10 @@
     <p>
       <em text-sm op75>Where All Your Books Reside</em>
     </p>
-
+    <button class="btn m-1" @click="toBookList">
+      Go To Your Books
+    </button>
+    <!--
     <div class="flex justify-center">
       <div class="alert-good" role="alert">
         <div class="flex">
@@ -63,5 +70,7 @@
         </div>
       </div>
     </div>
+  </div>
+ -->
   </div>
 </template>
