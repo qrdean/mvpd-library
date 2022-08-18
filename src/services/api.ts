@@ -1,4 +1,5 @@
 const DEV_ENDPOINT = 'http://localhost:8000/'
+const GO_DEV_ENDPOINT = 'http://localhost:8080/'
 
 export class Apis {
   constructor() {}
@@ -135,6 +136,24 @@ export class Apis {
       return { message: json.message, success: false }
     }
 
+    const json = await response.json()
+    return { message: json.message, success: true }
+  }
+
+  static async uploadFile(data: FormData): Promise<any> {
+    const url = `${GO_DEV_ENDPOINT}upload`
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'multipart/form-data',
+      },
+      body: data,
+    })
+    if (response.status !== 200) {
+      const json = await response.json()
+      return { message: json.message, success: false }
+    }
     const json = await response.json()
     return { message: json.message, success: true }
   }

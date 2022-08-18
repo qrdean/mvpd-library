@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
-// const loggedIn = false
 
 const router = useRouter()
 const home = () => {
@@ -10,8 +9,10 @@ const toCreate = () => {
   router.push('/create-book')
 }
 const toBookList = () => {
-  // console.log('book list')
   router.push('/hi/book')
+}
+const toFileUpload = () => {
+  router.push('/file-upload')
 }
 
 /**
@@ -60,6 +61,9 @@ const logout = () => {
                     </MenuItem>
                     <MenuItem v-slot="{ active }">
                       <a :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']" @click="toLocations()">Manage Locations</a>
+                    </MenuItem>
+                    <MenuItem v-slot="{ active }">
+                      <a :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']" @click="toFileUpload()">Upload Books</a>
                     </MenuItem>
                   </div>
                 </MenuItems>
