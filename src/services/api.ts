@@ -1,6 +1,7 @@
-const DEV_ENDPOINT = 'http://localhost:8000/'
+const DOCKER_DEV_ENDPOINT = 'http://localhost:8080/'
+// const DEV_ENDPOINT = 'http://localhost:8000/'
+const DEV_ENDPOINT = DOCKER_DEV_ENDPOINT
 const GO_DEV_ENDPOINT = 'http://localhost:8080/'
-
 export class Apis {
   constructor() {}
 

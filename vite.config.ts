@@ -61,12 +61,12 @@ export default defineConfig({
               },
               {
                 name: 'sans-serif',
-                provider: 'none'
-              }
-            ]
-          }
-        })
-      ]
+                provider: 'none',
+              },
+            ],
+          },
+        }),
+      ],
     }),
   ],
 
