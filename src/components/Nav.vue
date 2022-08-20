@@ -62,9 +62,10 @@ const logout = () => {
                     <MenuItem v-slot="{ active }">
                       <a :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']" @click="toLocations()">Manage Locations</a>
                     </MenuItem>
-                    <MenuItem v-slot="{ active }">
+                    <!-- <MenuItem v-slot="{ active }">
                       <a :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']" @click="toFileUpload()">Upload Books</a>
                     </MenuItem>
+-->
                   </div>
                 </MenuItems>
               </transition>
