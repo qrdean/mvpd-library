@@ -1,7 +1,7 @@
 [build.environment]
   NPM_FLAGS = "--version"
   NODE_VERSION = "16"
-  PRODUCTION_ENDPOINT = $PRODUCTION_ENDPOINT
+  PRODUCTION_ENDPOINT = "http://45.79.42.111:8000/"
 
 [build]
   publish = "dist"
