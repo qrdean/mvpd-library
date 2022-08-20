@@ -11,7 +11,7 @@ export class Apis {
     })
     if (response.status !== 200) {
       const json = await response.json()
-      return false
+      return { success: false, message: json.message }
     }
     return response.json()
   }
@@ -159,6 +159,7 @@ export class Apis {
     return { message: json.message, success: true }
   }
 
+  /**
   static async register(data: any): Promise<any> {
     const url = `${DEV_ENDPOINT}user/register`
     const response = await fetch(url, {
@@ -189,5 +190,5 @@ export class Apis {
       return false
     }
     return response.json()
-  }
+  } */
 }
